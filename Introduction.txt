@@ -1,0 +1,58 @@
+Welcome to Hangman!
+This is a classic word-guessing game brought to life using the C programming language. The core idea is simple: a secret word is chosen by the computer, and you, the player, must try to guess it by suggesting letters.
+
+How the Game Works:
+
+The Secret Word: At the start of each game, the computer randomly selects a word from a predefined list. Along with each word, there's a hint to give you a clue about what the word might be.
+
+Your Task: Your goal is to figure out the secret word before you run out of attempts.
+
+Guessing Letters: You'll be prompted to enter one letter at a time.
+
+Correct Guesses: If the letter you guess is present in the secret word, all instances of that letter will be revealed in the displayed word.
+
+Incorrect Guesses: If the letter you guess is not in the secret word, you'll lose one of your limited number of tries. With each incorrect guess, a part of a hangman figure is drawn.   
+
+Winning: You win the game by correctly guessing all the letters in the secret word before the hangman figure is complete.   
+
+Losing: If you make too many incorrect guesses (6 in this version) before guessing the word, the hangman figure will be fully drawn, and you will lose. The secret word will then be revealed.
+
+How it's Created (Behind the Scenes in C):
+
+This Hangman game is built using fundamental concepts of the C programming language:
+
+#include Directives: These lines bring in necessary libraries. For example, stdio.h is used for standard input/output operations (like printing to the console and reading user input), string.h for string manipulation (like comparing words and getting their length), ctype.h for character handling (like converting input to lowercase), stdlib.h for general utility functions (like generating random numbers), time.h for getting the current time (used to seed the random number generator), and stdbool.h for using boolean data types (true and false).   
+
+#define Macros: These create symbolic constants. MAX_WORD_LENGTH sets the maximum size of any word or hint, and MAX_TRIES defines the number of incorrect guesses allowed.   
+
+struct WordWithHint: This defines a structure to group a secret word and its corresponding hint together. This makes it easy to manage the word list.
+
+struct WordWithHint wordList[]: An array of these structures is created, containing the secret words and their hints. The game randomly selects one of these entries.
+
+srand(time(NULL)): This line initializes the random number generator using the current time. This ensures that a different word is usually selected each time you play.   
+
+Random Word Selection: The code uses rand() % 4 (initially, now it would be rand() % number_of_words) to pick a random index within the wordList array, thus selecting a random word and its hint.
+
+guessedWord[]: This character array keeps track of the letters the player has correctly guessed so far. Initially, it's filled with underscores (_).
+
+guessedLetters[]: This boolean array keeps track of all the letters the player has guessed (both correct and incorrect) to prevent them from guessing the same letter again.
+
+Game Loop (while (tries < MAX_TRIES)): The main game logic resides within this loop, which continues as long as the player has remaining tries.
+
+displayWord() Function: This function takes the guessedWord and guessedLetters arrays and displays the current state of the secret word to the player, showing correctly guessed letters and underscores for unguessed ones.
+
+drawHangman() Function: This function takes the number of incorrect tries and displays the corresponding stage of the hangman figure using a predefined array of strings.   
+
+User Input (scanf(" %c", &guess)): The game prompts the player to enter a letter, and scanf reads their input.
+
+Input Validation (Basic): The code converts the guessed letter to lowercase using tolower() and checks if the letter has already been guessed.
+
+Checking the Guess: The code iterates through the secretWord to see if the guessed letter matches any of the letters.   
+
+Updating Game State: If the guess is correct, the corresponding letters in guessedWord are revealed. If the guess is incorrect, the tries counter is incremented.
+
+Win Condition (strcmp(secretWord, guessedWord) == 0): The game checks if the guessedWord is now identical to the secretWord. If it is, the player wins.
+
+Lose Condition (tries >= MAX_TRIES): If the loop finishes because the player has used all their tries, the player loses, and the secret word is revealed.
+
+This C code provides a text-based implementation of the classic Hangman game, demonstrating fundamental programming concepts like arrays, strings, loops, conditional statements, and functions.
